@@ -1,0 +1,38 @@
+<%- include("partials/header") %>
+
+<div class="dp-form-container">
+	<div class="dp-brand-header">
+		masquerade
+	</div>
+	<div>
+		<div class="text-center font-weight-bold">Login with ...</div>
+		<div class="row my-3 justify-content-center">
+			<div class="row justify-content-between">
+				<div class="col-3">
+					<a class="dp-icon-link" href="#"><i class="fab fa-google"></i></a>
+				</div>
+				<div class="col-3">
+					<a class="dp-icon-link" href="#"><i class="fab fa-facebook"></i></a>
+				</div>
+				<div class="col-3">
+					<a class="dp-icon-link" href="#"><i class="fab fa-instagram"></i></a>
+				</div>
+				<div class="col-3">
+					<a class="dp-icon-link" href="#"><i class="fab fa-twitter"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<form action="/login" method="POST">
+		<div class="form-row justify-content-center">
+			<div class="col-md-6 col-sm-10 col-lg-4 col-xl-3 pt-3 dp-bd-top align-self-center">
+				<input class="form-control my-2" type="text" placeholder="username" name="username">
+				<input class="form-control my-2" type="password" placeholder="password" name="password">
+				<div class="text-right pb-3"><a href="#">Forgot Password</a></div>
+				<button class="btn btn-primary dp-extend" type="submit">Login</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<%- include("partials/footer") %>
