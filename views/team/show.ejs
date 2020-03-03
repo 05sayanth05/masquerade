@@ -48,6 +48,10 @@
                             },
                             {
                                 'data' : 'name',
+                                'render' : function (key,type,row) {
+                                    var code = `<a href="/team/${row._id}/show" target="_blank" >${key}</a>`;
+                                    return code;
+                                }
                             
                             },
                             {

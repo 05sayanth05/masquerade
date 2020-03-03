@@ -88,6 +88,12 @@ app.post("/team",middleware.isLoggedin,(req,res) => {
 	});
 });
 
+app.get("/team/:id/show",middleware.isLoggedin,(req,res) => {
+	Team.findOne({_id : req.params.id}).then((team) => {
+		res.render("team/showteam",{team});
+	});
+});
+
 // app : init
 app.get("/app/team/:uid",(req,res) => {
 	Team.findOne({uid : req.params.uid},(err,foundTeam) => {
