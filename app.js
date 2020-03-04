@@ -3,6 +3,7 @@ var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 const voucher_codes = require('voucher-code-generator');
 const logger = require('morgan');
+const fs = require("fs");
 var User = require("./models/user");
 var Team = require("./models/team");
 var passport = require("passport");
@@ -17,6 +18,10 @@ app.set("view engine","ejs");
 app.use(express.static(__dirname + "/public"));
 
 app.use(bodyParser.urlencoded({extended : true}));
+
+app.use(logger("common", {
+	stream: fs.createWriteStream('./masqueradeLogs.log', {flags: 'a'})
+}));
 
 app.use(logger('dev'));
 
