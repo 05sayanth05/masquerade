@@ -8,6 +8,7 @@ var Team = require("./models/team");
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
 var middleware = require("./middleware");
+const seed = require("./seeds/seedAdmin");
 
 var app = express();
 
@@ -33,6 +34,8 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+seed();
 
 app.use((req,res,next) => {
 	res.locals.userData = req.user;
