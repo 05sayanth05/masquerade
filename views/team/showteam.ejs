@@ -1,4 +1,33 @@
 <%- include("../partials/header") %>
-
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><%= team.name %> </h5>
+          <h6 class="card-subtitle mb-2 text-muted">UID: <%= team.uid %> </h6>
+          <p class="card-text">
+              <% if (team.isAlive) { %>
+               The team is alive
+              <% }else{ %>
+                The team is dead.
+              <% } %>
+          </p>
+          <p class="card-text">
+              Level Data:
+          </p>
+          <div class="list-group">
+              <% team.level.forEach(e => { %>
+                <a href="#" class="list-group-item list-group-item-action">
+                <% if (!e.time) { %>
+                    Level: <%= e.num %> --- Time: Not Completed
+                <% }else{ %>
+                Level: <%= e.num %> --- Time: <%=   e.time.getDate() + '/' + Number(Number(e.time.getMonth())+1) + '/' + e.time.getFullYear() + ' at ' + e.time.getHours() + ':' + e.time.getMinutes() + ':'  + e.time.getSeconds() + ' hours' %>
+                <% } %>
+            </a>
+              <% }) %>
+            
+          </div>
+        </div>
+      </div>
+</div>
 
 <%- include("../partials/footer") %>

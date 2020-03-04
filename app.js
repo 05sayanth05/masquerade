@@ -2,6 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 const voucher_codes = require('voucher-code-generator');
+const logger = require('morgan');
 var User = require("./models/user");
 var Team = require("./models/team");
 var passport = require("passport");
@@ -15,6 +16,8 @@ app.set("view engine","ejs");
 app.use(express.static(__dirname + "/public"));
 
 app.use(bodyParser.urlencoded({extended : true}));
+
+app.use(logger('dev'));
 
 mongoose.connect("mongodb://localhost:27017/masquerade",{useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set("useFindAndModify",false);
@@ -69,8 +72,10 @@ app.post("/team",middleware.isLoggedin,(req,res) => {
 		name : req.body.name,
 		uid : code[0],
 		level : [
-			{num : 1,
-			time : Date.now()}
+			{
+				num : 1,
+				time : null
+		}
 		],
 		isAlive : true
 	};
@@ -83,7 +88,7 @@ app.post("/team",middleware.isLoggedin,(req,res) => {
 		}
 		else {
 			console.log(foundTeam);
-			res.redirect("/team/new");
+			res.redirect("/team");
 		}
 	});
 });
@@ -119,9 +124,10 @@ app.post("/app/team/:uid/update",(req,res) => {
 	
 	Team.findOne({uid : req.params.uid}).then((team)=>{
 		if(team.isAlive){
+			team.level[team.level.length - 1].time = new Date(Date.now());
 			var level = {
 				num: req.body.level,
-				time: new Date(Date.now())
+				time: null
 			};
 			team.level.push(level);
 			team.save().then(()=>{
@@ -160,9 +166,10 @@ app.get("/getAllPlayers", middleware.isLoggedin, (req, res)=>{
 app.get("/team/:id/:level/override",middleware.isLoggedin,(req,res) => {
 	Team.findOne({_id: req.params.id}).then(team=>{
 		if(team.isAlive){
+			team.level[team.level.length - 1].time = new Date(Date.now())
 			var level = {
 				num: Number(req.params.level)+1,
-				time: new Date(Date.now())
+				time: null
 			}
 			team.level.push(level);
 			team.save().then(()=>{
