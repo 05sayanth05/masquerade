@@ -127,7 +127,10 @@ app.post("/app/team/:uid/update",(req,res) => {
 	
 	Team.findOne({uid : req.params.uid}).then((team)=>{
 		if(team.isAlive){
-			team.level[team.level.length - 1].time = new Date(Date.now());
+			var d = new Date(Date.now());
+			d.setHours(d.getHours() + 5);
+			d.setMinutes(d.getMinutes() + 30);
+			team.level[team.level.length - 1].time = d;
 			var level = {
 				num: req.body.level,
 				time: null
@@ -169,7 +172,10 @@ app.get("/getAllPlayers", middleware.isLoggedin, (req, res)=>{
 app.get("/team/:id/:level/override",middleware.isLoggedin,(req,res) => {
 	Team.findOne({_id: req.params.id}).then(team=>{
 		if(team.isAlive){
-			team.level[team.level.length - 1].time = new Date(Date.now())
+			var d = new Date(Date.now());
+			d.setHours(d.getHours() + 5);
+			d.setMinutes(d.getMinutes() + 30);
+			team.level[team.level.length - 1].time = d;
 			var level = {
 				num: Number(req.params.level)+1,
 				time: null
