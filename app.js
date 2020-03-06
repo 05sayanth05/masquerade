@@ -131,7 +131,7 @@ app.get("/app/team/:uid",(req,res) => {
 app.post("/app/team/:uid/update",(req,res) => {
 	
 	Team.findOne({uid : req.params.uid}).then((team)=>{
-		if(team.isAlive){
+		if(team.isAlive) {
 			var d = new Date(Date.now());
 			d.setHours(d.getHours() + 5);
 			d.setMinutes(d.getMinutes() + 30);
@@ -141,10 +141,11 @@ app.post("/app/team/:uid/update",(req,res) => {
 				time: null
 			};
 			team.level.push(level);
-			team.save().then(()=>{
+			team.save().then(() => {
 				res.json({success: true, message: `Team ${req.params.uid} passed level ${req.body.level}`});
-			})
-		}else{
+			});
+		} 
+		else {
 			res.json({success: false, message: `Team ${req.params.uid} is kicked`});
 		}
 		
