@@ -32,6 +32,10 @@
     color: black;
 }
 
+.dp-float-right {
+    float: right;
+}
+
 .dp-icon {
     font-size: 25px;
     margin-left: 2%;
