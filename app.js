@@ -30,7 +30,7 @@ mongoose.set("useFindAndModify",false);
 
 // passport config
 app.use(require("express-session")({
-	secret : "asdf zxcf lkkj",
+	secret : "your secret key here",
 	resave : false,
 	saveUninitialized : false
 }));
